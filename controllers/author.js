@@ -1,3 +1,5 @@
+const con = require('../utils/db');
+
 // show a specific author's articles
 const getAuthorsArticles = (req, res) => {
     let query = `SELECT *, article.name as article_name FROM article inner join author on article.author_id=author.id WHERE author.id="${req.params.id}"`;
@@ -19,4 +21,6 @@ const getAuthorsArticles = (req, res) => {
 };
 
 // export controller functions
-module.exports = getAuthorsArticles;
+module.exports = {
+    getAuthorsArticles
+};

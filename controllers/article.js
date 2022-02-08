@@ -20,7 +20,6 @@ const getArticleBySlug = (req, res) => {
     con.query(query, (err, result) => {
         if (err) throw err;
         article = result
-        console.log(article)
         res.render('article', {
             article: article
         })
