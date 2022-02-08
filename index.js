@@ -61,6 +61,26 @@ app.get('/article/:slug', (req, res) => {
     });
 });
 
+// show a specific author's articles
+app.get('/author/:id', (req, res) => {
+    let query = `SELECT *, article.name as article_name FROM article inner join author on article.author_id=author.id WHERE author.id="${req.params.id}"`;
+    let articles = []
+    let author = `select name from author where author.id="${req.params.id}"`;
+    con.query(query, (err, result) => {
+        if (err) throw err;
+        articles = result
+        con.query(author, (err, result) => {
+            if (err) throw err;
+            let authorData = result
+            console.log(authorData)
+            res.render('author', {
+                articles: articles,
+                author: authorData
+            })
+        })
+    })
+});
+
 // app start point
 app.listen(3000, () => {
     console.log('App is started at http://localhost:3000');
